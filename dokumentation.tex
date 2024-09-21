@@ -18,23 +18,23 @@
 
 \begin{document}
 \hypersetup{linkcolor=black} 
-% Deckblatt
+	% Deckblatt
 	\input{addons/deckblatt}	
 	\newpage
 	
-% Erklärung
+	% Erklärung
 	\input{addons/erklaerung}
 	\newpage
-%Sperrvermerk
+	%Sperrvermerk
 	\input{addons/Sperrvermerk}
 	
-% Abstract
+	% Abstract
 	\input{addons/abstract}
 
 	%\newpage
 	%\pagestyle{plain}
 	
-% Inhaltsverzeichnis
+	% Inhaltsverzeichnis
 	\begin{spacing}{1.05}
 	\hypersetup{linkcolor=black} 
 		\begingroup
@@ -55,7 +55,7 @@
 	
 	% Listingsvezeichnis ??
 	
-   %Abkürzungsverzeichnis
+    % Abkürzungsverzeichnis
    	\input{addons/acronym} 
     \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
    	\cleardoublepage{}
@@ -65,8 +65,6 @@
 	\renewcommand{\thepage}{\arabic{page}}
 	\setcounter{page}{1}
 	
-	%Folien neu referenzieren ab Folie10
-	
 	%Content
 	\input{content/01kapitel}
 	\input{content/02kapitel}
@@ -75,10 +73,10 @@
 	\input{content/05kapitel}
 	\input{content/06kapitel}
 	%\input{content/07kapitel}
-	% Anhang
+
 	\clearpage
 	\pagenumbering{Roman}
-	\setcounter{page}{3}
+	\setcounter{page}{3}	% Seitenzahl anpassen
 	
    % Literaturverzeichnis
    \hypersetup{linkcolor=black} 
@@ -88,11 +86,10 @@
    \literaturverz{T2000_02}
 	%\phantomsection \label{listoflit}
 
-
 	% Glossar
 	\printglossary[style=altlist,title=Glossar]
 
+	% Anhang
 	\input{content/anhang}	
 	
-
 \end{document}
