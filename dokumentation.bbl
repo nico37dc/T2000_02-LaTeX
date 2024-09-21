@@ -1,0 +1,73 @@
+\begin{thebibliography}{xx}
+
+\harvarditem{{Balluff GmbH}}{2024a}{BalluffRIPressekit}
+{Balluff GmbH}  \harvardyearleft 2024a\harvardyearright .
+\newblock {Balluff Pressekit RadarImager}.
+\newblock Abgerufen am 15.08.2024.
+\newline
+  \url{https://www.balluff.com/de-de/software-und-systemloesungen/radarimager-gesteigerte-qualitaetssicherung}
+\harvarditem{{Balluff GmbH}}{2024b}{BalluffRIWebsite}
+{Balluff GmbH}  \harvardyearleft 2024b\harvardyearright .
+\newblock {Für eine gesteigerte Qualitätssicherung: Das Unsichtbare sichtbar
+  machen}.
+\newblock Abgerufen am 15.08.2024.
+\newline
+  \url{https://www.balluff.com/de-de/software-und-systemloesungen/radarimager-gesteigerte-qualitaetssicherung}
+\harvarditem{{Balluff GmbH}}{2024c}{BalluffSDK}
+{Balluff GmbH}  \harvardyearleft 2024c\harvardyearright .
+\newblock {Impact Acquire SDK C++}.
+\newblock Abgerufen am 15.08.2024.
+\newline
+  \url{https://assets.balluff.com/documents/DRF_957352_AA_000/index.html}
+\harvarditem{{Balluff GmbH}}{2024d}{BalluffMVS}
+{Balluff GmbH}  \harvardyearleft 2024d\harvardyearright .
+\newblock {Machine Vision Software}.
+\newblock Abgerufen am 15.08.2024.
+\newline
+  \url{https://www.balluff.com/de-de/products/areas/A0005/groups/G0507/products/F05701}
+\harvarditem[Baumgartner et~al.]{Baumgartner, Gwihs, Seidl, Steirer
+  \harvardand\ Wendland}{2021}{Baumgartner2021}
+Baumgartner, M., Gwihs, S., Seidl, R., Steirer, T. \harvardand\ Wendland, M.-F.
+   \harvardyearleft 2021\harvardyearright .
+\newblock {\em Basiswissen Testautomatisierung}, dpunkt.verlag, Heidelberg.
+\newline
+  \url{http://ebookcentral.proquest.com/lib/dhbw-stuttgart/detail.action?docID=6466725}
+\harvarditem[Beneken et~al.]{Beneken, Hummel \harvardand\
+  Kucich}{2022}{Beneken2022}
+Beneken, G., Hummel, F. \harvardand\ Kucich, M.  \harvardyearleft
+  2022\harvardyearright .
+\newblock {\em Grundkurs agiles Software-Engineering}, Springer Vieweg,
+  Wiesbaden.
+\newline  \url{https://link.springer.com/book/10.1007/978-3-658-37371-9}
+\harvarditem{{Carl Zeiss Digital Innovation GmbH}}{2024}{Zeiss2024}
+{Carl Zeiss Digital Innovation GmbH}  \harvardyearleft 2024\harvardyearright .
+\newblock Testautomatisierung.
+\newblock Abgerufen am 15.08.2024.
+\newline
+  \url{https://blogs.zeiss.com/digital-innovation/de/tag/testautomatisierung/}
+\harvarditem{{European Machine Vision Association}}{2024}{EMVA2024}
+{European Machine Vision Association}  \harvardyearleft 2024\harvardyearright .
+\newblock {GenICam Package Version 2024.04}.
+\newblock Abgerufen am 15.08.2024.
+\newline
+  \url{https://www.emva.org/standards-technology/genicam/genicam-downloads/}
+\harvarditem[Gu et~al.]{Gu, Rong, Zhang \harvardand\ Shen}{2023}{Gu2023}
+Gu, S., Rong, G., Zhang, H. \harvardand\ Shen, H.  \harvardyearleft
+  2023\harvardyearright .
+\newblock {Logging Practices in Software Engineering: A Systematic Mapping
+  Study}, {\em IEEE Transactions on Software Engineering} .
+\newline  \url{https://ieeexplore.ieee.org/abstract/document/9756253}
+\harvarditem{Stroustrup}{2015}{Stroustrup2015}
+Stroustrup, B.  \harvardyearleft 2015\harvardyearright .
+\newblock {\em Die C++-Programmiersprache}, Hanser, München.
+\newline  \url{https://www.hanser-elibrary.com/doi/book/10.3139/9783446439818}
+\harvarditem{Witte}{2019}{Witte2019}
+Witte, F.  \harvardyearleft 2019\harvardyearright .
+\newblock {\em Testmanagement und Softwaretest}, Springer Vieweg, Wiesbaden.
+\newline  \url{https://link.springer.com/book/10.1007/978-3-658-25087-4}
+\harvarditem{Witte}{2023}{Witte2023}
+Witte, F.  \harvardyearleft 2023\harvardyearright .
+\newblock {\em Konzeption und Umsetzung automatisierter Softwaretests},
+  Springer Vieweg, Wiesbaden.
+\newline  \url{https://link.springer.com/book/10.1007/978-3-658-42661-3}
+\end{thebibliography}

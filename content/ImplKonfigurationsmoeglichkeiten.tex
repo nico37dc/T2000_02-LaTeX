@@ -1,0 +1,65 @@
+\section{Umsetzung der Konfigurationsmöglichkeiten}
+
+Die Implementierung der verschiedenen Konfigurationsmöglichkeiten für die Speicherung von Bildern oder Bildstapeln wird in der Callback-Funktion \glqq processRequest\grqq\
+sowie in den zugehörigen Hilfsfunktionen der Klasse \glqq ImageSavePreparer\grqq\ (siehe Anhang: Seite \pageref{processRequest} ab Zeile 6, \pageref{ImageSavePreparer1} ab Zeile 106 und \pageref{ImageSavePreparer2} ab Zeile 246) realisiert. Bei Empfang eines Bildes oder Bildstapels prüft die Funktion zunächst, ob eine 
+Speicherung gemäß der aktuellen Konfigurationseinstellungen erforderlich ist.
+
+Anschließend wird unterschieden, ob es sich um ein einzelnes Bild oder um einen Bildstapel handelt. Diese Unterscheidung basiert auf der Anzahl der Bilder (Parts), die der 
+empfangene Container enthält. Der Speichervorgang variiert je nachdem, ob ein einzelnes Bild oder ein Bildstapel vorliegt. Listing \ref{lst:save} zeigt diese Differenzierung 
+und den Ablauf des Speichervorgangs:
+
+\vspace{12pt}
+
+\begin{lstlisting}[
+    caption={Speichervorgang},
+    label={lst:save},
+    language=C++,
+    style=myCPP
+]
+@\textcolor{CommentGreen}{// Save images depending on the configuration}@
+@\textcolor{KeywordPurple}{if}@ (@\textcolor{black}{param}@.@\textcolor{black}{saveImages}@ && (@\textcolor{black}{param}@.@\textcolor{black}{saveImagesInterval}@ == 1 || @\textcolor{black}{pRequest}@->@\textcolor{black}{infoFrameID}@.@\textcolor{FunctionsYellow}{read}@() % @\textcolor{black}{param}@.@\textcolor{black}{saveImagesInterval}@ == 1))
+{
+  @\textcolor{KeywordPurple}{if}@ (@\textcolor{black}{bufferPartCount}@ == 1)  @\textcolor{CommentGreen}{// Buffer has exactly one image}@
+  {
+    @\textcolor{TypeBlue}{int}@ @\textcolor{black}{imageNumber}@ = @\textcolor{FunctionsYellow}{ceil}@((@\textcolor{TypeBlue}{float}@)@\textcolor{black}{pRequest}@->@\textcolor{black}{infoFrameID}@.@\textcolor{FunctionsYellow}{read}@()/(@\textcolor{TypeBlue}{float}@)@\textcolor{black}{param}@.@\textcolor{black}{saveImagesInterval}@);
+    @\textcolor{TypeBlue}{string}@ @\textcolor{black}{filename}@ = @\textcolor{black}{save}@.@\textcolor{FunctionsYellow}{prepareImageSave}@(@\textcolor{black}{param}@, @\textcolor{black}{imageNumber}@);
+    @\textcolor{black}{pRequest}@->@\textcolor{FunctionsYellow}{getBufferPart}@(0).@\textcolor{FunctionsYellow}{getImageBufferDesc}@().@\textcolor{FunctionsYellow}{save}@(@\textcolor{black}{filename}@);
+    @\textcolor{black}{loggerClient}@->@\textcolor{FunctionsYellow}{info}@("@\textcolor{StringOrange}{Saved image \{\} to \{\}}@", @\textcolor{black}{pRequest}@->@\textcolor{black}{infoFrameID}@.@\textcolor{FunctionsYellow}{read}@(), @\textcolor{black}{filename}@);
+  }
+  @\textcolor{KeywordPurple}{else}@  @\textcolor{CommentGreen}{// Buffer has more than one image}@
+  {
+    @\textcolor{TypeBlue}{string}@ @\textcolor{black}{filename}@ = @\textcolor{black}{save}@.@\textcolor{FunctionsYellow}{prepareBufferSave}@(@\textcolor{black}{param}@, @\textcolor{black}{pRequest}@->@\textcolor{black}{infoFrameID}@.@\textcolor{FunctionsYellow}{read}@(), @\textcolor{black}{i}@);
+    @\textcolor{black}{pRequest}@->@\textcolor{FunctionsYellow}{getBufferPart}@(@\textcolor{black}{i}@).@\textcolor{FunctionsYellow}{getImageBufferDesc}@.@\textcolor{FunctionsYellow}{save}@(@\textcolor{black}{filename}@);
+    @\textcolor{black}{loggerClient}@->@\textcolor{FunctionsYellow}{info}@("@\textcolor{StringOrange}{Saved image \{\} part \{\} to \{\}}@", @\textcolor{black}{pRequest}@->@\textcolor{black}{infoFrameID}@.@\textcolor{FunctionsYellow}{read}@(), @\textcolor{black}{i}@, @\textcolor{black}{filename}@);
+  }
+}
+\end{lstlisting}
+
+\paragraph{Einzelbild}
+
+Um die Nummer des aktuell zu speichernden Bildes zu bestimmen, wird die Identifikationsnummer des Bildes durch das festgelegte Speicherintervall geteilt. Diese Nummer 
+wird für die Vorbereitung des Speichervorgangs verwendet. In diesem Schritt wird der Pfad zum Speicherort generiert und bei Bedarf ein neuer
+Ordner angelegt. Hierbei wird zwischen der Nummerierung der Ordner und der Benennung mittels eines Zeitstempels unterschieden.
+
+Bei Nummerierung setzt sich der Pfad aus dem Hauptverzeichnis für Bilder und einem Unterverzeichnis, das die aktuelle Ordner-Nummer trägt, zusammen. Erreicht das Speicherintervall 
+den Punkt, an dem ein neuer Ordner benötigt wird, wird dieser mit der entsprechenden Nummer erstellt. Im Falle der Benennung durch einen Zeitstempel erhalten die Unterverzeichnisse 
+Namen, die den Zeitstempel bis auf Millisekunden genau wiedergeben. Die Benennung auf die Millisekunde genau ist notwendig, um das unabsichtliche Überschreiben der Verzeichnisse zu verhindern, da je nach Konfiguration 
+mehrere Verzeichnisse pro Sekunde erstellt werden. Es ist dabei zusätzlich erforderlich, den Namen des aktuellen oder vorherigen Ordners zu speichern, da der Zeitstempel nicht 
+einfach rekonstruiert werden kann für die nächsten Bilder, die im selben Ordner abgelegt werden sollen.
+
+Nachdem Erstellen des Pfads und gegebenenfalls dem Anlegen eines neuen Ordners, übergibt die Untermethode \glqq createImageSubpathFolder\grqq\ den Pfad an die Methode \glqq prepareImageSave\grqq\ (siehe Anhang: Seite \pageref{ImageSavePreparer2} ab Zeile 246). 
+Diese ist verantwortlich für die Erstellung des Bildnamens und somit für die Festlegung des endgültigen Speicherorts des Bildes. Auch hier wird zwischen Nummerierung und Zeitstempel 
+differenziert.
+
+Schließlich wird das Bild am festgelegten Speicherort durch den Aufruf der \glqq save\grqq-Methode des Impact Acquire SDK gespeichert.
+
+\paragraph{Bildstapel}
+
+Bei der Verarbeitung eines Bildstapels erfolgt die Vorbereitung ähnlich wie bei Einzelbildern, allerdings wird für jeden Container ein neuer Ordner angelegt. Innerhalb einer 
+for-Schleife, in der auch der Code aus Listing \ref{lst:save} implementiert ist, wird die Hilfsvariable \glqq i\grqq\ inkrementiert, die das aktuelle Bild im Stapel kennzeichnet. 
+Ein neuer Ordner wird immer dann erstellt, wenn \glqq i\grqq\ den Wert 0 annimmt, der das erste Bild eines neuen Bildstapels signalisiert.
+
+Die Methode \glqq prepareBufferSave\grqq\ ist anschließend dafür zuständig, den Namen der Bilddatei zu bestimmen (siehe Anhang: Seite \pageref{prepareBufferSave} ab Zeile 335). Abhängig von der Konfiguration wird hierbei entweder die Nummer des 
+Bildes innerhalb des Stapels (\glqq i\grqq) oder ein Zeitstempel verwendet. In jedem Fall wird die Nummer des Containers in die Benennung der Datei integriert.
+
+Das aktuelle Bild wird dann am vorbereiteten Speicherort abgelegt. Dieser Prozess wiederholt sich durch die for-Schleife für jedes Bild des Stapels.

@@ -1,0 +1,25 @@
+\chapter{Einführung}
+
+\section{Problemstellung}
+
+Die Entwicklung eines industriellen 3D-Bildgebungssytems auf Basis von Radartechnologie (RadarImager) erfordert umfangreiche Tests zur Gewährleistung 
+der korrekten Funktionalität und Datenübertragung. Hierfür existiert bereits ein provisorisches Testprogramm, welches jedoch nicht dem gewünschten Funktionsumfang entspricht.
+Es soll eine einfache Parametrisierung und Konfiguration des Tests möglich sein, um das Einstellen von verschiedenen Testbedingungen zu ermöglichen. Zudem müssen das Verhalten 
+sowie mögliche Fehler des RadarImagers beziehungsweise der Datenübertragung aufgezeichnet werden und nachvollziehbar sein. Das Testkonzept sowie das dazugehörige Programm 
+dürfen keine weiteren Fehler und somit Unsicherheiten erzeugen.
+
+\section{Zielsetzung}
+
+Ziel dieser Arbeit ist die Entwicklung eines Konzepts für die Konfiguration und Parametrisierung von Tests mittels einer Konfigurationsdatei und
+die automatisierte Generierung von Log-Dateien. Dieses Konzept soll in C++ implementiert und gründlich auf seine Funktionalität getestet werden. Am
+Ende des Projekts sollen die Testparameter in der Konfigurationsdatei eingestellt werden, sodass der Test automatisiert durchgeführt und mögliche
+Fehler über die Log-Dateien identifiziert werden können. Dadurch sollen Fehler und Auffälligkeiten des RadarImagers beziehungsweise in der Datenübertragung erkannt werden.
+
+\section{Vorgehensweise}
+
+Die Arbeit beginnt mit einer gründlichen Einarbeitung in die Thematik, einschließlich der GenICam-Technologie, der C++-Programmiersprache und
+des Verhaltens des RadarImagers. Die provisorische Version des Testprogramms wird dabei ebenfalls berücksichtigt. Die Anforderungen
+werden mit dem zuständigen Testingenieur abgestimmt. Anschließend wird das Testkonzept unter Berücksichtigung der gesammelten Anforderungen an
+den Test ausgearbeitet und in C++ implementiert. Zusätzlich wird der Aufbau der Konfigurationsdatei und der Log-Dateien festgelegt. Dabei steht die Automatisierung des
+Testvorgangs im Fokus. Um die Funktionalität sicherzustellen und Fehler durch das Testprogramm zu vermeiden, werden nach jeder Erweiterung des
+Funktionsumfangs weitere Modultests implementiert.

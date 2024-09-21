@@ -1,0 +1,98 @@
+%**************************************************************
+%%**************************************************************
+\documentclass[%
+	pdftex,
+	oneside,			% Einseitiger Druck.
+	12pt,				% Schriftgroesse
+	parskip=half,		% Halbe Zeile Abstand zwischen Absätzen.
+	headsepline,		% Linie nach Kopfzeile.
+	footsepline,		% Linie vor Fusszeile.
+	abstract=true,		% Abstract Überschriften
+	ngerman,			% Translator
+]{scrreprt}
+
+\input{addons/header}	% Ab jetzt können auch Umlaute verwendet werden
+
+\makeglossaries{}
+\input{addons/glossary}
+
+\begin{document}
+\hypersetup{linkcolor=black} 
+% Deckblatt
+	\input{addons/deckblatt}	
+	\newpage
+	
+% Erklärung
+	\input{addons/erklaerung}
+	\newpage
+%Sperrvermerk
+	\input{addons/Sperrvermerk}
+	
+% Abstract
+	\input{addons/abstract}
+
+	%\newpage
+	%\pagestyle{plain}
+	
+% Inhaltsverzeichnis
+	\begin{spacing}{1.05}
+	\hypersetup{linkcolor=black} 
+		\begingroup
+			% auskommentieren für Seitenzahlen unter Inhaltsverzeichnis
+			\renewcommand*{\chapterpagestyle}{empty}
+			\pagestyle{empty}	
+			\setcounter{tocdepth}{1}
+			\tableofcontents
+			\clearpage
+		\endgroup
+	\end{spacing}
+	\newpage
+
+	% Abbildungsverzeichnis und Tabellenverzeichnis
+	\pagenumbering{Roman}
+	\addcontentsline{toc}{chapter}{Abbildungsverzeichnis}
+	\listoffigures
+	
+	% Listingsvezeichnis ??
+	
+   %Abkürzungsverzeichnis
+   	\input{addons/acronym} 
+    \addcontentsline{toc}{chapter}{Abkürzungsverzeichnis}
+   	\cleardoublepage{}
+
+	% Inhalt
+	\pagenumbering{arabic}
+	\renewcommand{\thepage}{\arabic{page}}
+	\setcounter{page}{1}
+	
+	%Folien neu referenzieren ab Folie10
+	
+	%Content
+	\input{content/01kapitel}
+	\input{content/02kapitel}
+	\input{content/03kapitel}
+	\input{content/04kapitel}
+	\input{content/05kapitel}
+	\input{content/06kapitel}
+	%\input{content/07kapitel}
+	% Anhang
+	\clearpage
+	\pagenumbering{Roman}
+	\setcounter{page}{3}
+	
+   % Literaturverzeichnis
+   \hypersetup{linkcolor=black} 
+	\cleardoublepage{}
+		\addcontentsline{toc}{chapter}{Literaturverzeichnis}
+	\bibliographystyle{dcugerman}
+   \literaturverz{T2000_02}
+	%\phantomsection \label{listoflit}
+
+
+	% Glossar
+	\printglossary[style=altlist,title=Glossar]
+
+	\input{content/anhang}	
+	
+
+\end{document}

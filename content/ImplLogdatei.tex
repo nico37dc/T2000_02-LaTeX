@@ -1,0 +1,43 @@
+\section{Umsetzung des Loggings} \label{Logging}
+
+Um einen Logger mithilfe der Bibliothek \glqq spdlog\grqq\ zu implementieren, ist zunächst eine Initialisierung erforderlich. Diese erfolgt über eine Methode, die abhängig von 
+den übergebenen Parametern eine Log-Rotation mit definierter maximaler Dateigröße und Anzahl an Dateien erstellt (siehe Anhang: Seite \pageref{initializeLogger} ab Zeile 395). 
+Zusätzlich wird das Log-Level durch eine Hilfsfunktion festgelegt (siehe Anhang: Seite \pageref{setLogLevel} ab Zeile 356).
+
+Nach der Initialisierung kann der Logger in Funktionen und Methoden eingebunden werden. Dies geschieht durch folgenden Aufruf:
+
+\vspace{12pt}
+
+\begin{lstlisting}[
+    caption={Aufruf des Loggers},
+    label={lst:logAufruf},
+    language=C++,
+    style=myCPP,
+    basicstyle=\small\ttfamily,
+    numberstyle=\small
+]
+auto loggerClient = spdlog::get("logClient");
+\end{lstlisting}
+
+Innerhalb der Callback-Funktion \glqq processRequest\grqq\ werden relevante Informationen zur Datenübertragung protokolliert. Es wird vermerkt, wenn ein Bildstapel empfangen wird, 
+einschließlich der Anzahl der enthaltenen Bilder und der Größe jedes einzelnen Bildes. Auch nach erfolgreichem Speichern eines Bildes wird eine entsprechende Log-Nachricht erstellt. 
+Zudem werden die Zeiten für die Erstellung und Speicherung der Bilder sowie deren Differenz dokumentiert. Treten Fehler auf, so werden diese ebenfalls sorgfältig festgehalten. Ein 
+typisches Beispiel für einen solchen Fehler ist der Empfang eines Bildes außerhalb des vorgesehenen Containers. Dies deutet auf eine Fehlfunktion des RadarImagers hin, da unter 
+regulären Bedingungen jedes Bild innerhalb eines Containers übermittelt wird.
+
+Regelmäßig werden wichtige Statistiken wie \ac{FPS}, Frame Count und die Anzahl verlorener Bilder in die Log-Dateien geschrieben. Diese Daten werden über das Impact 
+Acquire \acs{SDK} bezogen und auf Auffälligkeiten hin überprüft. Bei signifikanten Änderungen der \ac{FPS} oder einer Zunahme verlorener Bilder im Vergleich zur letzten Überprüfung 
+wird eine Warnung ausgegeben, um im Nachinein mögliche Probleme identifizieren zu können. Dies ist besonders relevant, wenn ein Fehler zum Abbruch des Tests führt, beispielsweise 
+bei einer fehlerhaften Anfrage.
+
+Zum Monitoring wird die \glqq cURL\grqq-Bibliothek genutzt, um über eine HTTP-Anfrage ein \glqq Azure Issue\grqq\ zu erstellen. Die Methode \glqq createAzureIssue\grqq\
+in der Klasse \glqq AzureIssueCreator\grqq\ sendet eine HTTP POST-Anfrage an die Azure DevOps REST-API, um ein \glqq Azure Issue\grqq\ mit spezifischen Feldern wie Titel, 
+Beschreibung und zugewiesenem Benutzer zu erstellen (siehe Anhang: Seite \pageref{AzureIssueCreator1} ab Zeile 146 und \pageref{AzureIssueCreator2} ab Zeile 502). Die Authentifizierung erfolgt über ein in \glqq Base64\grqq\ kodiertes \ac{PAT}. Die Serverantwort wird protokolliert und 
+relevante Informationen werden in die Log-Dateien geschrieben.
+
+Um das Testprogramm automatisch zu beenden, falls über einen längeren Zeitraum keine Bilder empfangen werden, überwacht eine while-Schleife im Hauptprogramm die Zeit seit der letzten 
+Anfrage. Diese Schleife endet entweder durch Überschreitung dieser Zeitgrenze oder durch das Drücken einer Taste (siehe Anhang: Seite \pageref{while-Schleife} ab Zeile 155). Eine Hilfsfunktion ermöglicht dabei die parallele Abfrage der 
+Tastatureingabe.
+
+Zusätzlich zum Logging der Datenübertragung und Speicherung wird die separate Log-Datei zur Überwachung des korrekten Ablaufs des Testprogramms geführt. Diese Log-Datei wird unabhängig 
+von den Hilfsfunktionen für das Logging verwaltet, um auch dort mögliche Fehlerquellen zu identifizieren.

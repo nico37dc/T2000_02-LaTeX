@@ -1,0 +1,27 @@
+\section{Grundlagen des GenICam-Standards}
+
+GenICam, kurz für \glqq Generic Interface for Cameras\grqq, ist ein Standard von der \ac{EMVA}, der eine einheitliche 
+Programmierschnittstelle für verschiedene Arten von Kameras in der industriellen Bildverarbeitung definiert. Der Standard umfasst 
+mehrere Module, darunter GenApi, GenTL, GenCP und GenDC, welche verschiedene Aspekte der Kameraschnittstellen und -kommunikation abdecken.
+
+Das \textbf{GenApi} (Generic Application Programming Interface) definiert eine XML-basierte Beschreibungssprache, die die Funktionen und Parameter 
+einer Kamera beschreibt. Durch diese Beschreibung können Anwendungen die Kameraeinstellungen dynamisch auslesen und konfigurieren, ohne 
+auf herstellerspezifische Treiber angewiesen zu sein.
+
+Der \textbf{GenTL} (Generic Transport Layer) legt eine standardisierte Schnittstelle für die Datenübertragung zwischen der Kamera und dem Host-System fest. 
+Dies ermöglicht die Entwicklung von Anwendungen, die unabhängig vom verwendeten Übertragungsprotokoll (z.B. GigE Vision, Camera Link) sind. 
+Ein GenTL Producer stellt die erforderlichen Funktionen bereit, um Datenströme von der Kamera zu empfangen und zu verwalten.
+
+Das \textbf{GenCP} (Generic Control Protocol) definiert ein standardisiertes Protokoll für die Steuerung und Konfiguration von Kameras. Es erlaubt die 
+Kommunikation zwischen der Kamera und der Anwendung, sodass Konfigurationsparameter gesetzt oder abgefragt sowie Befehle an die Kamera gesendet werden können.
+
+Der \textbf{GenDC} (Generic Data Container) ist ein Format für die standardisierte Beschreibung und Übertragung von Bild- und Metadaten. Die Speicherung komplexer Datenstrukturen, 
+wie beispielsweise Bildstapel (3D-Bilddaten), erfolgt in einem einheitlichen Containerformat. Dies erlaubt eine erleichterte Interpretation und Verarbeitung der Daten durch 
+unterschiedliche Anwendungen und Systeme.
+
+Die vom RadarImager-System erfassten Daten werden in Form eines Bildstapels verarbeitet. Diese Bildstapel setzen sich aus mehreren einzelnen Bildlagen zusammen, 
+welche in einem GenICam GenDC bereitgestellt werden. Der Einsatz des GenDC gewährleistet eine einheitliche und standardisierte Darstellung der Bilddaten, wodurch eine 
+erleichterte Weiterverarbeitung und Analyse möglich ist. Die Übertragung der Bilddaten erfolgt über ein GenICam GenTL Producer Interface, welches die Daten vom Kamerasystem 
+über Gigabit-Ethernet an das Host-System sendet.
+
+\citep{BalluffRIWebsite} \citep{EMVA2024}

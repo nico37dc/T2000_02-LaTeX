@@ -1,0 +1,66 @@
+\section{Verarbeitung der Konfigurationsdatei} \label{Konfigurationsdatei}
+
+Um die Parameter aus der Konfigurationsdatei effektiv im Code zu nutzen, empfiehlt es sich, diese zunächst in Variablen zu speichern. Hierfür wird eine Struktur angelegt, die 
+sowohl die vom Benutzer festgelegten Werte als auch daraus resultierende Werte enthält. Bevor die Parameter aus der JSON-Datei in die Variablen übernommen werden, ist eine 
+Überprüfung der Datentypen notwendig. Dies verhindert unerwünschte implizite Datentypkonvertierungen und Fehler. Die Verarbeitung der JSON-Datei erfolgt mithilfe der 
+\glqq nlohmann/json\grqq-Bibliothek, die eine robuste und effiziente Handhabung von JSON-Daten ermöglicht.
+
+\vspace{6pt}
+
+\begin{lstlisting}[
+    caption={Parsen der JSON-Datei},
+    label={lst:JSON-Parse},
+    language=C++,
+    style=myCPP,
+    basicstyle=\small\ttfamily,
+    numberstyle=\small
+]
+ifstream paramFile(configFilename);
+nlohmann::json root;
+paramFile >> root;
+\end{lstlisting}
+
+Zunächst wird ein Input-File-Stream-Objekt erstellt, um die Konfigurationsdatei zu öffnen. Anschließend wird eine Variable \glqq root\grqq\ definiert, die als Container für 
+die JSON-Daten dient. Der Inhalt von \glqq paramFile\grqq\ wird in die Variable \glqq root\grqq\ geparsed. Dadurch wird der Inhalt der JSON-Datei in eine strukturierte Form 
+umgewandelt, die programmatisch einfacher zu verarbeiten ist. Dann kann der Datentyp eines Parameters überprüft werden:
+
+\vspace{12pt}
+
+\begin{lstlisting}[
+    caption={Überprüfung des Datentyps},
+    label={lst:Datentyp-Test},
+    language=C++,
+    style=myCPP,
+    basicstyle=\small\ttfamily,
+    numberstyle=\small
+]
+root["Basic"]["testID"].is_string()
+\end{lstlisting}
+
+Mithilfe der eckigen Klammern wird durch die Struktur der JSON-Datei navigiert. Die Methode \glqq is\_string()\grqq\ überprüft, ob der Wert an der angegebenen Stelle vom Typ
+\glqq string\grqq\ ist. Falls einer der Datentypen inkorrekt ist, wird eine Fehlermeldung ausgegeben und das Testprogramm abgebrochen. Sind alle Datentypen korrekt, werden 
+die Parameter in die vorgesehene Struktur übertragen. Hierbei ist \glqq param\grqq\ eine Instanz der Struktur für die Parameter (siehe Anhang: Seite \pageref{ParamStruct} ab Zeile 32).
+
+\vspace{12pt}
+
+\begin{lstlisting}[
+    caption={Übernahme der Parameter},
+    label={lst:Parameter-Übernahme},
+    language=C++,
+    style=myCPP,
+    basicstyle=\small\ttfamily,
+    numberstyle=\small
+]
+param.testID = root["Basic"]["testID"];
+\end{lstlisting}
+
+Anschließend erfolgt eine Plausibilitätsprüfung der Parameter. Dabei wird beispielsweise überprüft, dass eingegebene Strings nicht leer sind oder Pfade nur zulässige Zeichen 
+enthalten. Bei numerischen Werten wird kontrolliert, ob diese im zugelassenen Bereich liegen, wie etwa beim Log-Level, das nur vier Werte (0 bis 3) zulässt.
+
+Nach erfolgreicher Überprüfung werden der Ausgabeordner und die zugehörigen Unterverzeichnisse erstellt, die zur besseren Nachverfolgbarkeit einen Zeitstempel im Namen enthalten. Außerdem
+wird dadurch vermieden, dass einer der Ordner unabsichtlich überschrieben wird.
+Die Klasse \glqq TimestampProvider\grqq\ generiert diesen Zeitstempel, wobei zwischen sekunden- und millisekundengenauer Genauigkeit gewählt werden kann (siehe Anhang: Seite \pageref{TimestampProvider1} ab Zeile 66 und \pageref{TimestampProvider2} ab Zeile 5). Bei Problemen während des 
+Erstellens der Ordner wird eine Fehlermeldung ausgegeben und in die Log-Datei für das Testprogramm geschrieben.
+
+Die Methoden und Konstanten für die Parameterbereiche sind in der Klasse \glqq ConfigurationHandler\grqq\ abgelegt (siehe Anhang: Seite \pageref{ConfigurationHandler} ab Zeile 79). Dies fördert die Kapselung von Daten und bietet eine klare 
+Schnittstelle durch eine Hauptmethode, die interne Methoden aufruft und so die Funktionalität zentral verwaltet.

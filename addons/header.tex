@@ -1,0 +1,272 @@
+%!TEX root = ../dokumentation.tex
+
+%
+% Nahezu alle Einstellungen koennen hier getaetigt werden
+%
+
+% Zeichencodierung
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[official]{eurosym}
+
+% Zeilenabstand
+\usepackage[onehalfspacing]{setspace}
+
+
+% Seitenränder anpassen 
+%\usepackage[paper=a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{geometry}
+\setlength{\topskip}{\ht\strutbox} % behebt Warnung von geometry 
+\setlength{\headheight}{1.1\baselineskip}   % Headheight hochsetzten 
+\renewcommand*{\chapterheadstartvskip}{\vspace*{.5\baselineskip}}% Abstand einstellen
+
+%PDF als ganze Seite einbinden
+\usepackage{pdfpages}
+
+%Seitengroesse
+\usepackage{fullpage}
+
+%Zeilenumbruch und mehr
+\usepackage[activate]{microtype}
+
+% gestrichelte Linien
+\usepackage{dashrule}
+
+% Index-Erstellung
+\usepackage{makeidx}
+
+% Lokalisierung (neue deutsche Rechtschreibung)
+\usepackage[ngerman]{babel}
+
+% Anführungszeichen 
+\usepackage[babel,german=quotes]{csquotes}
+
+% Grafiken
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\DeclareCaptionLabelFormat{blank}{}
+%\usepackage{subcaption}
+\usepackage{float}
+\restylefloat{figure}
+
+% Mathematische Textsaetze
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%checkmarks
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+%footnotes in a table
+\usepackage{setspace}
+\usepackage{threeparttable}
+
+% Farben
+\usepackage{color}
+\definecolor{LinkColor}{rgb}{0,0,0.2}
+\definecolor{ListingBackground}{rgb}{0.92,0.92,0.92}
+
+% PDF Einstellungen
+\usepackage{hyperref}
+[%
+	%pdftitle={\pdftitel},
+	%pdfauthor={\autor},
+	%pdfsubject={\arbeit},
+	pdfcreator={pdflatex, LaTeX with KOMA-Script},
+	pdfpagemode=UseOutlines, % Beim Oeffnen Inhaltsverzeichnis anzeigen
+	pdfdisplaydoctitle=true, % Dokumenttitel statt Dateiname anzeigen.
+	pdflang=de % Sprache des Dokuments.
+]
+
+% (Farb-)einstellungen für die Links im PDF
+\hypersetup{%
+	colorlinks=true, % Aktivieren von farbigen Links im Dokument
+	linkcolor=black, % Farbe festlegen
+	citecolor=black,
+	filecolor=LinkColor,
+	menucolor=LinkColor,
+	urlcolor=black,  %%changed to black	
+	bookmarksnumbered=true % Überschriftsnummerierung im PDF Inhalt anzeigen.
+}
+
+% Literaturverweise 
+\usepackage[authoryear]{natbib}
+\newcommand{\literaturverz}[1]{
+	%Autorenverknüpfung mit "und"
+	\renewcommand{\harvardand}{and}
+	\bibliography{#1}
+}
+
+% http://projekte.dante.de/DanteFAQ/Silbentrennung
+\usepackage{microtype}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+
+% Quellcode
+
+\usepackage{listings} % Einbinden des Listings-Pakets für Code-Listings
+
+% Definition von benutzerdefinierten Farben
+\definecolor{KeywordPurple}{rgb}{0.5, 0.0, 0.5}
+\definecolor{CommentGreen}{rgb}{0.13, 0.55, 0.13}
+\definecolor{StringOrange}{rgb}{0.8, 0.33, 0.0}
+\definecolor{TypeBlue}{rgb}{0.2, 0.2, 0.8} % Sanfteres Blau
+\definecolor{IntMagenta}{rgb}{0.8, 0.2, 0.8} % Sanfteres Magenta
+\definecolor{ClassGreen}{rgb}{0.0, 0.75, 0.5} % Türkis, weniger grell
+\definecolor{FunctionsYellow}{rgb}{0.9, 0.8, 0.1} % Weniger grelles Gelb
+% Definition eines benutzerdefinierten JSON-Sprachstils
+\lstdefinelanguage{json}{
+    morestring=[b]",                % Definiert das Anführungszeichen als String-Begrenzer
+    stringstyle=\color{CommentGreen},    % Setzt die Farbe der Strings auf Grün
+    literate=                       % Ermöglicht die Formatierung einzelner Zeichen oder Zeichenfolgen
+     *{0}{{{\color{IntMagenta}0}}}{1}
+      {1}{{{\color{IntMagenta}1}}}{1}
+      {2}{{{\color{IntMagenta}2}}}{1}
+      {3}{{{\color{IntMagenta}3}}}{1}
+      {4}{{{\color{IntMagenta}4}}}{1}
+      {5}{{{\color{IntMagenta}5}}}{1}
+      {6}{{{\color{IntMagenta}6}}}{1}
+      {7}{{{\color{IntMagenta}7}}}{1}
+      {8}{{{\color{IntMagenta}8}}}{1}
+      {9}{{{\color{IntMagenta}9}}}{1}
+      {"Test}{{{\color{StringOrange}"Test}}}{4}
+      {ID"}{{{\color{StringOrange}ID"}}}{2}
+      {Description"}{{{\color{StringOrange}Description"}}}{10}
+      {"..//"}{{{\color{StringOrange}"..//"}}}{4},
+}
+
+% Definition eines benutzerdefinierten JSON-Stils
+\lstdefinestyle{myJSON}{
+	backgroundcolor=\color{white},   % Setzt die Hintergrundfarbe auf Weiß
+	basicstyle=\scriptsize\ttfamily, % Setzt die Basis-Schriftart und -größe
+	breaklines=true,                 % Ermöglicht das Umbruch von langen Zeilen
+	captionpos=b,                    % Position der Beschriftung unterhalb des Listings
+	frame=single,                    % Rahmenart: einfacher Rahmen um das Listing
+	keepspaces=true,                 % Beibehalten von Leerzeichen im Code, nützlich für die Einrückung
+	language=json,                   % Setzt die Sprache des Listings auf JSON
+	numbers=left,                    % Zeilennummern auf der linken Seite
+	numbersep=5pt,                   % Abstand der Zeilennummern zum Text
+	numberstyle=\scriptsize,         % Stil und Größe der Zeilennummern
+	rulecolor=\color{black},         % Farbe des Rahmens
+	showstringspaces=false,          % Keine speziellen Markierungen für Leerzeichen in Strings
+	tabsize=2,                       % Größe eines Tabulators ist 2 Leerzeichen
+	keywordstyle=[2]\color{TypeBlue},    % Farbe der Schlüsselwörter (true, false) auf Blau setzen
+	keywords=[2]{true, false}        % Definiert zusätzliche Schlüsselwörter
+}
+
+\lstloadlanguages{C++}
+
+% Definition eines benutzerdefinierten C++-Stils
+\lstdefinestyle{myCPP}{
+	backgroundcolor=\color{white},
+	basicstyle=\scriptsize\ttfamily,
+	breaklines=true,
+	breakindent=20pt,
+	% breakatwhitespace=true, 
+	postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
+	captionpos=b,
+	frame=single,
+	keepspaces=true,
+	language=C++,
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\scriptsize,
+	rulecolor=\color{black},
+	showstringspaces=false,
+	tabsize=2,
+	stringstyle=\color{StringOrange},
+	commentstyle=\color{CommentGreen},
+	morekeywords={string, time_t, size_t, curl_easy_setopt},
+	keywordstyle=\color{TypeBlue},
+	emph={using, return, if, else, switch, case, break},
+	emphstyle=\color{KeywordPurple},
+	emph={[2]std, chrono, stringstream, system_clock, helper, RequestProvider, shared_ptr, mvIMPACT, acquire, ImageBuffer, this_thread, filesystem, milliseconds, ImpactAcquireException, spdlog, ifstream, nlohmann, level, DeviceManager, termios, json, CURL, CURLcode, ConfigurationParameter, ThreadParameter, Device, exception, Statistics, TimestampProvider, ConfigurationHandler, ImageSavePreparer, Logger, AzureIssueCreator},
+	emphstyle={[2]\color{ClassGreen}},
+	emph={[3]getTimestamp, str, localtime, put_time, processRequest, isOK, duration_cast, getDeviceFromUserInput, sleep_for, acquisitionStop, open, parse, getBufferPart, getErrorCodeAsString, acquisitionStart, reset, ref, getImageBufferDesc, getBuffer, save, now, basic_logger_mt, curl_slist_free_all, curl_easy_cleanup, tcgetattr, fcntl, getchar, ungetc, base64_encode, curl_easy_init, curl_slist_append, curl_easy_perform, curl_easy_strerror, create_directories, ceil, name, readS, read, append, to_string, mkdir, set_level, set_pattern, rotating_logger_mt, flush_on, c_str, time_since_epoch, setfill, setw, is_string, is_boolean, is_number_integer, count, get, empty, isalnum, to_time_t, getTimestamp_ms, getNowTime, operator=, loadConfiguration, checkPath, createFolder, readConfigurationParameter, checkConfigurationParameter, createOutputDirectories, prepareImageSave, prepareBufferSave, createImageSubpathFolder, createBufferSubpathFolder, initializeLogger, logStatistics, setLogLevel, interpretStatistics, sendAzureIssue, checkKeyboardHit, createAzureIssue, handleCurlResponse},
+	emphstyle={[3]\color{FunctionsYellow}},
+	escapeinside={@@},
+	literate=
+		{0}{{\textcolor{IntMagenta}{0}}}1
+		{1}{{\textcolor{IntMagenta}{1}}}1
+		{2}{{\textcolor{IntMagenta}{2}}}1
+		{3}{{\textcolor{IntMagenta}{3}}}1
+		{4}{{\textcolor{IntMagenta}{4}}}1
+		{5}{{\textcolor{IntMagenta}{5}}}1
+		{6}{{\textcolor{IntMagenta}{6}}}1
+		{7}{{\textcolor{IntMagenta}{7}}}1
+		{8}{{\textcolor{IntMagenta}{8}}}1
+		{9}{{\textcolor{IntMagenta}{9}}}1
+}
+
+
+\lstdefinestyle{myHPP}{
+	backgroundcolor=\color{white},
+	basicstyle=\scriptsize\ttfamily,
+	breaklines=true,
+	breakindent=20pt,
+	breakatwhitespace=true, 
+	postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
+	captionpos=b,
+	frame=single,
+	keepspaces=true,
+	language=C++,
+	numbers=left,
+	numbersep=5pt,
+	numberstyle=\scriptsize,
+	rulecolor=\color{black},
+	showstringspaces=false,
+	tabsize=2,
+	stringstyle=\color{StringOrange},
+	moredelim=[s][\color{StringOrange}]{<}{>},
+	commentstyle=\color{CommentGreen},
+	morekeywords={string, time_t, size_t},
+	keywordstyle=\color{TypeBlue},
+	emph={using},
+	emphstyle=\color{KeywordPurple},
+	emph={[2]std, ConfigurationParameter, ThreadParameter, Device, Statistics, TimestampProvider, ConfigurationHandler, ImageSavePreparer, Logger, AzureIssueCreator},
+	emphstyle={[2]\color{ClassGreen}},
+	emph={[3]getTimestamp, getTimestamp_ms, getNowTime, operator=, loadConfiguration, checkPath, createFolder, readConfigurationParameter, checkConfigurationParameter, createOutputDirectories, prepareImageSave, prepareBufferSave, createImageSubpathFolder, createBufferSubpathFolder, initializeLogger, logStatistics, setLogLevel, interpretStatistics, sendAzureIssue, checkKeyboardHit, createAzureIssue, handleCurlResponse},
+	emphstyle={[3]\color{FunctionsYellow}},
+	escapeinside={@@},
+	literate=
+		{0}{{\textcolor{IntMagenta}{0}}}1
+		{1}{{\textcolor{IntMagenta}{1}}}1
+		{2}{{\textcolor{IntMagenta}{2}}}1
+		{3}{{\textcolor{IntMagenta}{3}}}1
+		{4}{{\textcolor{IntMagenta}{4}}}1
+		{5}{{\textcolor{IntMagenta}{5}}}1
+		{6}{{\textcolor{IntMagenta}{6}}}1
+		{7}{{\textcolor{IntMagenta}{7}}}1
+		{8}{{\textcolor{IntMagenta}{8}}}1
+		{9}{{\textcolor{IntMagenta}{9}}}1
+}
+
+% Glossar
+\usepackage[
+	nonumberlist, %keine Seitenzahlen anzeigen
+	acronym,      %ein Abkürzungsverzeichnis erstellen
+	%section,     %im Inhaltsverzeichnis auf section-Ebene erscheinen
+	toc,          %Einträge im Inhaltsverzeichnis
+]{glossaries}
+
+%Abkürzungsverzeichnis
+\usepackage[nohyperlinks]{acronym}
+
+%Bildpfad
+\graphicspath{{images/}}
+
+%nur ein latex-Durchlauf für die Aktualisierung von Verzeichnissen nötig
+\usepackage{bookmark}
+
+% eine Kommentarumgebung "k" (Handhabe mit \begin{k}<Kommentartext>\end{k},
+% Kommentare werden rot gedruckt). Wird \% vor excludecomment{k} entfernt,
+% werden keine Kommentare mehr gedruckt.
+\usepackage{comment}
+\specialcomment{k}{\begingroup\color{red}}{\endgroup}
+%\excludecomment{k}
+
+%Color in tables
+\usepackage{colortbl}

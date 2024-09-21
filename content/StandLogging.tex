@@ -1,0 +1,30 @@
+\section{Methoden des Loggings}
+
+Logging kann durch verschiedene Ansätze und Techniken realisiert werden. Dieses Kapitel gibt
+einen Überblick über die verschiedenen Logging-Ansätze, um die passende Lösung für die gegebenen Bedingungen zu finden.
+
+Die Kategorisierung von Log-Nachrichten nach ihrer Priorität erfolgt durch verschiedene Log-Level. Typische Level sind \glqq Debug\grqq, \glqq Info\grqq, \glqq Warn\grqq, \glqq Error\grqq\ und \glqq Critical\grqq. 
+Durch die Einstellung eines bestimmten Log-Levels kann gesteuert werden, welche Nachrichten in den Log-Dateien erscheinen. Dies erhöht die Übersichtlichkeit und 
+verbessert die Performance, indem irrelevante Informationen ausgeblendet werden.
+
+Die Struktur einer Log-Nachricht ist entscheidend für ihren Nutzen. Eine Log-Nachricht enthält Elemente wie den Zeitstempel, das Log-Level, die betroffene Komponente 
+oder Funktion und eine beschreibende Nachricht. Die Anpassung der Formatierung ermöglicht die Integration spezifischer Anforderungen wie beispielsweise Benutzer-IDs. Dies 
+erleichtert die Nachverfolgung und Diagnose von Ereignissen und Fehlern.
+
+Um die Systemleistung nicht durch übermäßig große Log-Dateien zu beeinträchtigen, werden Verfahren wie Log-Rotation und Archivierung verwendet. Log-Rotation ist eine Methode, 
+bei der die Protokollierung zwischen mehreren Dateien wechselt, sobald eine festgelegte Zeitdauer oder Dateigröße erreicht wird. Es ist möglich, Parameter wie die 
+maximale Dateigröße oder die Zeitdauer festzulegen, nach denen eine Rotation erfolgen soll, sowie die Anzahl der zu rotierenden Log-Dateien zu definieren. Durch die Anwendung 
+von zeit- oder größenbasierter Rotation werden ältere Log-Dateien entweder archiviert oder gelöscht, wodurch der Speicher effizient verwaltet und die 
+Systemwartung vereinfacht wird.
+
+Es wird zwischen synchronem und asynchronem Logging unterschieden. Synchrones Logging stellt die Reihenfolge und Vollständigkeit der Log-Einträge sicher, kann aber die 
+Anwendungsleistung beeinträchtigen, da es die Log-Nachrichten innerhalb der Hauptanwendung erstellt. Asynchrones Logging hingegen verbessert die Performance, indem Log-Nachrichten 
+in eine Warteschlange gestellt werden, die unabhängig von der Hauptanwendung verarbeitet wird.
+
+Monitoring und Alarmierung sind entscheidend für die proaktive Überwachung und schnelle Reaktion auf potenzielle Probleme. Automatische Benachrichtigungen bei kritischen 
+Log-Nachrichten unterstützen den Testingenieur dabei, den Testprozess effektiv zu überwachen.
+ 
+Logs können auf Konsolen, in Dateien oder Datenbanken ausgegeben werden. Es ist dabei wichtig, sensible Daten zu schützen und Logs nur autorisierten Personen zugänglich zu machen. 
+Dadurch wird sichergestellt, dass die Logging-Verfahren nicht nur effizient, sondern auch sicher sind und die Integrität und Vertraulichkeit der Systemdaten gewährleistet wird.
+
+\citep{Beneken2022} \citep{Gu2023}

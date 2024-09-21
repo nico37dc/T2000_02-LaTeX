@@ -1,0 +1,39 @@
+\section{Konzeptionelle Gestaltung der Konfiguration}
+
+Die Konfiguration der Tests wird mithilfe einer Konfigurationsdatei vorgenommen. Dies bietet den Vorteil der Flexibilität sowie der Trennung von Quellcode 
+und Konfiguration. Darüber hinaus kann die Konfigurationsdatei wiederverwendet werden, wobei bei Bedarf nur einzelne Parameter angepasst werden müssen. Zudem ist die Konfiguration 
+stets nachvollziehbar, wodurch die Datei bereits eine Art Dokumentation des Testdurchlaufs ist. Ein weiterer Vorteil besteht darin, dass eine Erweiterung, beispielsweise durch 
+eine \acs{GUI}, möglich ist. Es ist ratsam, dies klar zu trennen, sodass die \acs{GUI} die Konfigurationsdatei beschreibt, um die Lösung ohne \acs{GUI} selbst funktionsfähig zu halten.
+
+Auf die ausschließliche Nutzung einer \acs{GUI} wird verzichtet, da diese für notwendige kurzfristige Anpassungen zu unflexibel ist. Zudem bleibt damit die Möglichkeit bestehen, das 
+Testprogramm in ein Softwaretool zur weiteren Automatisierung zu integrieren. Terminaleingaben werden nicht genutzt, da sie für die wichtige Nachverfolgbarkeit und Konsistenz 
+ungeeignet sind und keine einfache Handhabung bieten. Auch die Konfiguration der Testparameter direkt im Quellcode wird vermieden, da eine Neukompilierung für jeden 
+Testdurchlauf nicht praktikabel ist. Dennoch werden innerhalb des Quellcodes bestimmte Einstellungen vorgenommen oder Konstanten definiert, die für das Testprogramm relevant sind. 
+Diese betreffen jedoch allgemeine Aspekte, die nicht direkt mit spezifischen Testdurchläufen verbunden sind, wie beispielsweise die Festlegung von Grenzwerten zur Überprüfung der 
+Plausibilität bestimmter Parameter.
+
+Als Dateiformat für die Konfigurationsdatei wird JSON verwendet, da dies sowohl für den Benutzer als auch in C++ gut lesbar und verständlich ist. Zudem ermöglicht JSON eine 
+strukturierte Darstellung der einzelnen Parameter. Dies verschafft dem Benutzer einen besseren Überblick und vereinfacht das Eintragen der Parameter. Innerhalb des Projekts 
+existiert bereits eine Konfigurationsdatei, die allgemeine Parameter des Tests sowie Einstellungen für den simulierten Trigger enthält. Diese wird nach entsprechender Anpassung 
+weiterverwendet. In Listing \ref{lst:config} ist die angepasste Konfigurationsdatei dargestellt:
+
+\vspace{12pt}
+
+\lstinputlisting[
+    caption={Konfigurationsdatei},
+    label={lst:config},
+    language=json,
+    style=myJSON
+]{code/configParameter.json}
+
+Um die verschiedenen Bereiche des Tests klar zu trennen, werden in der Konfigurationsdatei unterschiedliche Abschnitte verwendet, in denen jeweils die Parameter festgelegt werden. 
+Somit ist die Konfigurationsdatei in drei Teile gegliedert. Der Abschnitt \glqq Basic\grqq\ enthält grundlegende Informationen über den Testdurchlauf, wie eine eindeutige Test-ID, eine 
+Beschreibung und die Dauer des Testdurchlaufs. Im Abschnitt \glqq GenICam-Client\grqq\ sind Parameter für die Speicherung der Bilder und das Erstellen der Log-Dateien hinterlegt. Im letzten 
+Teil \glqq objectParameter\grqq\ sind Parameter enthalten, die sich auf das zu testende Objekt bzw. den simulierten Trigger beziehen.
+
+Um Missverständnisse zu vermeiden und die korrekte Konfiguration der Testdurchläufe zu gewährleisten, existiert zu der Konfigurationsdatei eine Dokumentation. Diese beschreibt 
+den Aufbau der Datei, erklärt die einzelnen Parameter und gibt deren Einheit sowie mögliche Werte an.
+
+Damit die Parameter aus der Konfigurationsdatei korrekt ausgelesen und weiterverwendet werden, wird in C++ die Bibliothek \glqq nlohmann/json\grqq\ verwendet. Diese ermöglicht die 
+Überprüfung der Datentypen der einzelnen Eingaben und die Speicherung der Parameter. Die Bibliothek wird verwendet, da sie benutzerfreundlich ist, konform mit allen JSON-Datentypen 
+arbeitet und zudem eine umfassende Dokumentation besitzt.
