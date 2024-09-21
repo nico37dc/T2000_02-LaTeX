@@ -5,44 +5,44 @@ Reallocating 'name_of_file' (item size: 1) to 10 items.
 The style file: dcugerman.bst
 Reallocating 'name_of_file' (item size: 1) to 9 items.
 Database file #1: T2000_02.bib
-You've used 12 entries,
+You've used 3 entries,
             2949 wiz_defined-function locations,
-            709 strings with 6734 characters,
-and the built_in function-call counts, 46036 in all, are:
-= -- 7587
-> -- 489
+            660 strings with 5227 characters,
+and the built_in function-call counts, 9461 in all, are:
+= -- 1551
+> -- 72
 < -- 0
-+ -- 3592
-- -- 147
-* -- 3830
-:= -- 9369
-add.period$ -- 30
-call.type$ -- 12
-change.case$ -- 163
-chr.to.int$ -- 9
-cite$ -- 12
-duplicate$ -- 142
-empty$ -- 321
-format.name$ -- 174
-if$ -- 8240
-int.to.chr$ -- 8
++ -- 713
+- -- 21
+* -- 757
+:= -- 1976
+add.period$ -- 7
+call.type$ -- 3
+change.case$ -- 40
+chr.to.int$ -- 3
+cite$ -- 3
+duplicate$ -- 39
+empty$ -- 84
+format.name$ -- 27
+if$ -- 1682
+int.to.chr$ -- 5
 int.to.str$ -- 0
-missing$ -- 11
-newline$ -- 57
-num.names$ -- 123
-pop$ -- 84
+missing$ -- 4
+newline$ -- 16
+num.names$ -- 30
+pop$ -- 22
 preamble$ -- 1
-purify$ -- 180
+purify$ -- 45
 quote$ -- 0
-skip$ -- 127
+skip$ -- 29
 stack$ -- 0
-substring$ -- 10677
-swap$ -- 6
-text.length$ -- 168
+substring$ -- 2169
+swap$ -- 2
+text.length$ -- 42
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 38
+type$ -- 8
 warning$ -- 0
-while$ -- 252
+while$ -- 63
 width$ -- 0
-write$ -- 187
+write$ -- 47
